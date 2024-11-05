@@ -4,7 +4,9 @@ import 'package:user/views/detail/widgets/team_score_tile.dart';
 
 class TeamScoreTable extends StatefulWidget {
   final double width;
-  const TeamScoreTable({super.key, required this.width});
+  final Map<String, int> scores;
+
+  const TeamScoreTable({Key? key, required this.width, required this.scores}) : super(key: key);
 
   @override
   State<TeamScoreTable> createState() => _TeamScoreTableState();
@@ -14,55 +16,39 @@ class _TeamScoreTableState extends State<TeamScoreTable> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        //Team 1
-        TeamScoresTile(
-          width: widget.width,
-          teamName: "E20",
-          teamColor: AppColors.e20Color,
-          teamScore: "20",
-        ),
+      children: widget.scores.entries.map((entry) {
+        Color teamColor;
 
-        const SizedBox(
-          height: 20,
-        ),
+        // Assign colors based on team name (key)
+        switch (entry.key) {
+          case 'e20':
+            teamColor = AppColors.e20Color;
+            break;
+          case 'e21':
+            teamColor = AppColors.e21Color;
+            break;
+          case 'e22':
+            teamColor = AppColors.e22Color;
+            break;
+          case 'e23':
+            teamColor = AppColors.e23Color;
+            break;
+          default:
+            teamColor = Colors.grey; // Default color for unrecognized teams
+        }
 
-        //Team 2
-        TeamScoresTile(
-          width: widget.width,
-          teamName: "E21",
-          teamColor: AppColors.e21Color,
-          teamScore: "21",
-        ),
-
-        const SizedBox(
-          height: 20,
-        ),
-
-        //Team 3
-        TeamScoresTile(
-          width: widget.width,
-          teamName: "E22",
-          teamColor: AppColors.e22Color,
-          teamScore: "20",
-        ),
-
-        const SizedBox(
-          height: 20,
-        ),
-
-        //Team 4
-        TeamScoresTile(
-          width: widget.width,
-          teamName: "E23",
-          teamColor: AppColors.e23Color,
-          teamScore: "20",
-        ),
-
-        const SizedBox(
-          height: 20,
-        ),
-      ],
+        return Column(
+          children: [
+            TeamScoresTile(
+              width: widget.width,
+              teamName: entry.key.toUpperCase(), // Display key (e.g., "E20")
+              teamColor: teamColor,
+              teamScore: entry.value.toString(), // Display score as string
+            ),
+            const SizedBox(height: 20),
+          ],
+        );
+      }).toList(),
     );
   }
 }

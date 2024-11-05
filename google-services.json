@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "624472076430",
+    "project_id": "e-week-2k24",
+    "storage_bucket": "e-week-2k24.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624472076430:android:bb17eb2de700789b9f99df",
+        "android_client_info": {
+          "package_name": "com.example.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTtadcvyqxEkRNjYEILZxHcbwQuVHtx38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624472076430:android:bf90c9eacae0781b9f99df",
+        "android_client_info": {
+          "package_name": "com.example.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTtadcvyqxEkRNjYEILZxHcbwQuVHtx38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

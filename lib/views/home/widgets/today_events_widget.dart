@@ -18,7 +18,7 @@ class TodayEventsWidget extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemCount: 10,
           itemBuilder: (context, index) {
-            return EventContainer(width: width);
+            return EventContainer(width: width, eventName: '', date: '', time: '', eventId: '',);
           }),
     );
   }
