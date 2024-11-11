@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user/core/contants/colors.dart';
 import 'package:user/core/utils/heading_text.dart';
-import 'package:user/core/widgets/logo.dart';
+import 'package:user/core/widgets/cached_image_widget.dart';
 import 'package:user/views/detail/event_detail_page.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -35,6 +35,7 @@ class EventContainer extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => EventDetailPage(
+            imageUrl: imageUrl,
             eventId: eventId,
             totalPoints: totalPoints,
             eventName: eventName,
@@ -98,10 +99,7 @@ class EventContainer extends StatelessWidget {
                 ],
               ),
             ),
-            Hero(
-              tag: 'eventPic-$eventId',
-              child: ourLogo(size: width * .1),
-            ),
+            CachedImage(width: width * .1, url: imageUrl)
           ],
         ),
       ),

@@ -63,6 +63,7 @@ class AllEvents extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => EventDetailPage(
+                                    imageUrl: event.imageUrl,
                                     eventId: event.id,
                                     totalPoints: event.totalPoints,
                                     eventName: event.eventName,

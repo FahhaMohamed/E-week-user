@@ -19,6 +19,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   EventController eventController = Get.put(EventController());
 
+  
+
   @override
   Widget build(BuildContext context) {
     double w = getScreenWidth(context);

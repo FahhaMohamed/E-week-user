@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:user/core/utils/screen_width.dart';
 import 'package:user/views/home/widgets/circle_widget.dart';
 
@@ -17,7 +18,12 @@ class ScoreCircles extends StatelessWidget {
       stream: _pointsStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+            child: Lottie.asset(
+              'assets/lottie/no-events.json',
+              width: w * .5,
+            ),
+          );
         }
 
         if (snapshot.hasError) {

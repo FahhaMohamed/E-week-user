@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: const LandingPage(),
+      title: "E-Week 24",
       theme: ThemeData(
         fontFamily: 'GlacialIndifference',
         iconTheme: const IconThemeData(color: AppColors.iconColor),

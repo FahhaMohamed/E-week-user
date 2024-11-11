@@ -28,7 +28,7 @@ String todayDay(int date) {
   return day;
 }
 
-const String phoneNumber = "+94785250119";
+const String phoneNumber = "+94769368882";
 
 class InfoTexts {
   static String historyText =

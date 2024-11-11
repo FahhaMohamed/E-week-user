@@ -12,6 +12,7 @@ import '../../models/event_model.dart';
 
 class EventDetailPage extends StatefulWidget {
   final String eventId;
+  final String imageUrl;
   final String eventName;
   final int totalPoints;
 
@@ -19,7 +20,7 @@ class EventDetailPage extends StatefulWidget {
       {super.key,
       required this.eventId,
       required this.totalPoints,
-      required this.eventName});
+      required this.eventName, required this.imageUrl});
 
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
@@ -186,6 +187,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           EventDetails(
+                            image: widget.imageUrl,
                             totalPoints: widget.totalPoints,
                             date: event.date,
                             time: event.time,
