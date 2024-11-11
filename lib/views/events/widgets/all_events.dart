@@ -1,10 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:user/controllers/event_controller.dart';
+import 'package:user/core/utils/heading_text.dart';
+import 'package:user/core/widgets/custom_shimmer.dart';
+
 import '../../../core/utils/screen_width.dart';
 import '../../../core/widgets/event_container.dart';
 import '../../detail/event_detail_page.dart';
-import '../event_model.dart';
 
 class AllEvents extends StatelessWidget {
   const AllEvents({Key? key}) : super(key: key);
@@ -13,46 +15,76 @@ class AllEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = getScreenWidth(context);
 
-    return Expanded(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('events').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text("No events available"));
-          }
+    EventController eventController = Get.put(EventController());
 
-          final events = snapshot.data!.docs.map((doc) => Event.fromFirestore(doc)).toList();
-
-          return ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              final event = events[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EventDetailPage(eventId: event.id),
+    return Obx(() => eventController.isLoading.value
+        ? Expanded(
+            child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomShimmer(
+                      height: 70,
+                      width: w,
+                      radius: 15,
                     ),
                   );
-                },
-                child: EventContainer(
-                  width: w,
-                  eventId: event.id,             // Pass the event ID to EventContainer
-                  eventName: event.eventName,     // Pass the event name
-                  date: event.date,               // Pass the event date
-                  time: event.time,               // Pass the event time
-                  isAllEvent: true,               // Indicate it's in AllEvents view
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
+                }),
+          )
+        : eventController.hasError.value
+            ? Center(
+                child: subHeadingText(
+                    text: "Oops! Something went wrong, try again."),
+              )
+            : eventController.filteredEvents.isEmpty
+                ? Center(
+                    child: subHeadingText(text: "No events available."),
+                  )
+                : Expanded(
+                    child: RefreshIndicator(
+                      color: Colors.red,
+                      backgroundColor: Colors.black,
+                      onRefresh: () async {
+                        eventController.fetchEvents();
+                      },
+                      child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        itemCount: eventController.filteredEvents.length,
+                        itemBuilder: (context, index) {
+                          final event = eventController.filteredEvents[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EventDetailPage(
+                                    eventId: event.id,
+                                    totalPoints: event.totalPoints,
+                                    eventName: event.eventName,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: EventContainer(
+                              totalPoints: event.totalPoints,
+                              width: w,
+                              eventId: event.id,
+                              eventName: event.eventName,
+                              date: event.date,
+                              time: event.time,
+                              isAllEvent: true,
+                              completed: event.completed,
+                              imageUrl: event.imageUrl,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ));
   }
 }

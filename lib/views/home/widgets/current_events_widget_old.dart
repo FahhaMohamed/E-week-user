@@ -7,22 +7,34 @@ import 'package:user/core/widgets/custom_shimmer.dart';
 import 'package:user/core/widgets/event_container.dart';
 import 'package:user/models/event_model.dart';
 
-class TodayEventsWidget extends StatelessWidget {
-  const TodayEventsWidget({
+class CurrentEventsWidget extends StatelessWidget {
+  CurrentEventsWidget({
     super.key,
     required this.width,
   });
 
   final double width;
 
+  final _userStream = FirebaseFirestore.instance.collection('events');
+
   @override
   Widget build(BuildContext context) {
     String todayDate = DateFormat('dd.MM.yyyy').format(DateTime.now());
-    return SizedBox(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('events')
+
+    DateTime now = DateTime.now();
+
+    String oneHourBefore = DateFormat('hh:mm a')
+        .format(now.subtract(const Duration(hours: 1)))
+        .toLowerCase();
+    String oneHourAfter = DateFormat('hh:mm a')
+        .format(now.add(const Duration(hours: 1)))
+        .toLowerCase();
+
+    return StreamBuilder<QuerySnapshot>(
+        stream: _userStream
             .where('date', isEqualTo: todayDate)
+            .where('time', isGreaterThanOrEqualTo: oneHourBefore)
+            .where('time', isLessThanOrEqualTo: oneHourAfter)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -53,7 +65,7 @@ class TodayEventsWidget extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    "Today no events available.",
+                    "Currently no events available.",
                     style: TextStyle(color: AppColors.emptyEventColor),
                   )
                 ]);
@@ -77,12 +89,10 @@ class TodayEventsWidget extends StatelessWidget {
                   date: '',
                   time: event.time,
                   eventId: event.id,
-                  imageUrl: event.imageUrl,
                   completed: event.completed,
+                  imageUrl: event.imageUrl,
                 );
               });
-        },
-      ),
-    );
+        });
   }
 }

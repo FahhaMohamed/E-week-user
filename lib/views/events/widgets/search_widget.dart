@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:user/controllers/event_controller.dart';
 import 'package:user/core/contants/colors.dart';
+import 'package:user/core/utils/screen_width.dart';
 
 class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key});
@@ -10,12 +13,30 @@ class SearchWidget extends StatefulWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
   bool isSearch = false;
+  final TextEditingController _searchController = TextEditingController();
+  final EventController eventController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      eventController.setSearchTerm(_searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    double w = getScreenWidth(context);
     return Container(
       alignment: Alignment.center,
       height: 40,
+      width: w * .8,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
@@ -27,6 +48,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         ),
       ),
       child: TextFormField(
+        controller: _searchController,
         onTap: () {
           setState(() {
             isSearch = true;
@@ -42,7 +64,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         style: const TextStyle(
           decoration: TextDecoration.none,
           color: AppColors.iconColor,
-          height: .75, // Adjust the text's vertical alignment
+          height: .75,
         ),
         decoration: const InputDecoration(
           hintText: 'Search the event',
@@ -54,7 +76,6 @@ class _SearchWidgetState extends State<SearchWidget> {
             Icons.search,
             color: AppColors.iconColor,
           ),
-          // Center vertically
         ),
       ),
     );

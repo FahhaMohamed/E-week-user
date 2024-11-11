@@ -7,20 +7,26 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class EventContainer extends StatelessWidget {
   final double width;
-  final String eventId; // Added eventId parameter
+  final String eventId;
   final String eventName;
+  final String imageUrl;
+  final int totalPoints;
   final String date;
   final String time;
   final bool isAllEvent;
+  final bool completed;
 
   const EventContainer({
     Key? key,
     required this.width,
-    required this.eventId, // Initialize eventId
+    required this.eventId,
     required this.eventName,
     required this.date,
     required this.time,
     this.isAllEvent = false,
+    required this.imageUrl,
+    required this.totalPoints,
+    required this.completed,
   }) : super(key: key);
 
   @override
@@ -28,7 +34,11 @@ class EventContainer extends StatelessWidget {
     return ZoomTapAnimation(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => EventDetailPage(eventId: eventId), // Pass the eventId here
+          builder: (_) => EventDetailPage(
+            eventId: eventId,
+            totalPoints: totalPoints,
+            eventName: eventName,
+          ),
         ),
       ),
       child: Container(
@@ -61,7 +71,20 @@ class EventContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  eventText(text: eventName),
+                  Row(
+                    children: [
+                      if (completed)
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(
+                            Icons.check_circle,
+                            size: 20,
+                            color: Color.fromARGB(255, 77, 255, 178),
+                          ),
+                        ),
+                      eventText(text: eventName),
+                    ],
+                  ),
                   if (!isAllEvent) dateText(text: time),
                   if (isAllEvent)
                     Row(
@@ -69,13 +92,14 @@ class EventContainer extends StatelessWidget {
                         dateText(text: time),
                         const SizedBox(width: 35),
                         dateText(text: date),
+                        const SizedBox(width: 5),
                       ],
                     ),
                 ],
               ),
             ),
             Hero(
-              tag: 'eventPic-$eventId', // Unique tag based on eventId
+              tag: 'eventPic-$eventId',
               child: ourLogo(size: width * .1),
             ),
           ],
