@@ -18,33 +18,37 @@ class TeamScoresTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(children: [
-          TableCell(
-            child: Container(
-              width: width * .09,
-              height: width * .09,
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.iconColor, width: 2),
-                  color: teamColor,
-                  shape: BoxShape.circle),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      color: const Color.fromARGB(255, 227, 227, 227),
+      child: Table(
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        children: [
+          TableRow(children: [
+            TableCell(
+              child: Container(
+                width: width * .09,
+                height: width * .09,
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.iconColor, width: 2),
+                    color: teamColor,
+                    shape: BoxShape.circle),
+              ),
             ),
-          ),
-          TableCell(
-            child: subHeadingText(text: teamName),
-          ),
-          TableCell(
-            child: Row(
-              children: [
-                eventText(text: "POINTS: "),
-                scoreText(text: teamScore),
-              ],
+            TableCell(
+              child: subHeadingText(text: teamName),
             ),
-          ),
-        ])
-      ],
+            TableCell(
+              child: Row(
+                children: [
+                  eventText(text: "POINTS: "),
+                  scoreText(text: teamScore),
+                ],
+              ),
+            ),
+          ])
+        ],
+      ),
     );
   }
 }

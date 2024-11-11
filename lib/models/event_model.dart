@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Event {
   final String id;
   final String eventName;
+  final String imageUrl;
   final String date;
   final String time;
   final int totalPoints;
@@ -11,6 +12,7 @@ class Event {
   Event({
     required this.id,
     required this.eventName,
+    required this.imageUrl,
     required this.date,
     required this.time,
     required this.totalPoints,
@@ -22,6 +24,7 @@ class Event {
     return Event(
       id: doc.id,
       eventName: data['eventName'] ?? '',
+      imageUrl: data.containsKey('imageUrl') ? data['imageUrl'] : '',
       date: data['date'] ?? '',
       time: data['time'] ?? '',
       totalPoints: data['totalPoints'] ?? 0,

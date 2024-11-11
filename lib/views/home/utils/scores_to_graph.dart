@@ -23,6 +23,9 @@ List<FlSpot> createLineChartDataForTeam(int teamIndex) {
       case 3:
         score = teamScores[i].teamE23;
         break;
+      case 4:
+        score = teamScores[i].teamStaff;
+        break;
       default:
         score = 0;
     }

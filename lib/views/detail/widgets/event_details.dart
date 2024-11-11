@@ -7,12 +7,13 @@ class EventDetails extends StatelessWidget {
   final double width;
   final String date;
   final String time;
-
+  final int totalPoints;
   const EventDetails({
     super.key,
     required this.width,
     required this.date,
     required this.time,
+    required this.totalPoints,
   });
 
   @override
@@ -32,10 +33,10 @@ class EventDetails extends StatelessWidget {
             padding: const EdgeInsets.all(0),
             color: AppColors.iconColor,
             onPressed: () {},
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Event Points"),
+                Text("Total Points: $totalPoints"),
               ],
             )),
         const SizedBox(

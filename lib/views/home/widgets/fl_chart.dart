@@ -54,6 +54,8 @@ Widget flChart() {
               const Color.fromARGB(255, 149, 220, 255)),
           lineChartBarData(createLineChartDataForTeam(3),
               const Color.fromARGB(255, 242, 169, 255)),
+          lineChartBarData(createLineChartDataForTeam(4),
+              const Color.fromARGB(255, 191, 255, 164)),
         ])),
   );
 }

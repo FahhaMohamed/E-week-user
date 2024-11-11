@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const backgroundColor = Color(0xffffffff);
+  static const emptyEventColor = Color(0xfff767FAD);
   static const iconColor = Color(0xff000000);
   static const unSelectIconColor = Color.fromARGB(255, 194, 194, 194);
   static const shadowColor = Color.fromARGB(255, 198, 198, 198);
@@ -14,4 +15,5 @@ class AppColors {
   static const e20Color = Color.fromARGB(255, 255, 250, 207);
   static const e22Color = Color.fromARGB(255, 206, 239, 255);
   static const e23Color = Color.fromARGB(255, 251, 229, 255);
+  static const staffColor = Color.fromARGB(255, 237, 255, 229);
 }
