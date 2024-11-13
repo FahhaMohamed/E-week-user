@@ -29,6 +29,9 @@ String todayDay(int date) {
 }
 
 const String phoneNumber = "+94769368882";
+const String myPhoneNumber = "+94785250119";
+const String mySocial =
+    "https://www.instagram.com/mhmd_fahham_?igsh=aGp4NWthcGk5YTQw";
 
 class InfoTexts {
   static String historyText =
@@ -63,4 +66,9 @@ is located. To this end, it features various social development initiatives, inc
 drives, quiz competitions, educational workshops, and seminars for school children from nearby 
 districts. This annual event acts as a catalyst for strengthening the bonds between the faculty's students, 
 staff, and the wider community.""";
+}
+
+class AppImagePaths {
+  static const instagramIcon = "assets/images/insta-icon.png";
+  static const whatsappIcon = "assets/images/whats-icon.png";
 }

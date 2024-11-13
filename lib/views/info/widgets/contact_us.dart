@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user/core/contants/colors.dart';
+import 'package:user/core/utils/launch_urls.dart';
 import 'package:user/core/utils/open_whats_app.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -15,7 +16,7 @@ class ContactUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
       onTap: () {
-        openWhatsApp();
+        openWhatsapp();
       },
       child: Container(
           width: w,

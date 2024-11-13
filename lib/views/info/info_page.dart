@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:user/core/contants/global.dart';
+import 'package:user/core/utils/launch_urls.dart';
 import 'package:user/core/utils/screen_width.dart';
 import 'package:user/views/info/widgets/contact_us.dart';
 import 'package:user/views/info/widgets/detail_page.dart';
 import 'package:user/views/info/widgets/info_item.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
@@ -61,7 +63,47 @@ class _InfoPageState extends State<InfoPage> {
                             )));
                   },
                 ),
-                ContactUs(w: w)
+                ContactUs(w: w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Developed by "),
+                        Text(
+                          "Mohamed Fahham",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("─── ⋆⋅ Contact Me ⋅⋆ ──"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ZoomTapAnimation(
+                            onTap: () {
+                              openDevWhatsapp();
+                            },
+                            child: Image.asset(
+                              AppImagePaths.whatsappIcon,
+                              width: w * .1,
+                            )),
+                        ZoomTapAnimation(
+                            onTap: () {
+                              openSocialMedia();
+                            },
+                            child: Image.asset(
+                              AppImagePaths.instagramIcon,
+                              width: w * .1,
+                            )),
+                      ],
+                    )
+                  ],
+                )
               ],
             ),
           ),

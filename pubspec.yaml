@@ -41,7 +41,7 @@ dependencies:
   firebase_database: ^11.1.2
   cached_network_image: ^3.4.1
   flutter_local_notifications: ^17.2.2
-  firebase_messaging:
+  firebase_messaging: ^15.1.4
   intl: ^0.19.0
   percent_indicator: ^4.2.3
   loading_animation_widget: ^1.2.1
@@ -61,14 +61,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_launcher_icons: "^0.14.1"
+
 
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/app_logo.png"
-  min_sdk_android: 22 
+  min_sdk_android: 21 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
