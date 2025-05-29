@@ -15,7 +15,7 @@ class TeamScoresModel {
       required this.teamStaff});
 }
 
-//sample data
+//seeder
 List<TeamScoresModel> teamScores = [
   TeamScoresModel(
       day: "1",

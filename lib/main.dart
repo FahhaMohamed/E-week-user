@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:user/core/contants/colors.dart';
 import 'package:user/core/utils/delete_memory.dart';
-import 'package:user/views/landing_page.dart';
+import 'package:user/landing_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

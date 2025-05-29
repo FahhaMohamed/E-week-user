@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user/core/contants/colors.dart';
 import 'package:user/core/widgets/logo.dart';
 import 'package:user/core/widgets/logo_loading_widget.dart';
 import 'package:user/navigation/bottom_nav.dart';
-import 'package:user/views/on_boarding_page.dart';
+import 'package:user/views/onBoarding/on_boarding_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -20,17 +18,29 @@ class _LandingPageState extends State<LandingPage> {
   bool _showLoadingWidget = false;
   bool isOpened = false;
 
-  checkRule() async {
+  void checkRuleAndNavigate() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    isOpened = sharedPreferences.getBool('isOpened') ?? false;
+
+    await Future.delayed(const Duration(seconds: 2));
     setState(() {
-      isOpened = sharedPreferences.getBool('isOpened') ?? false;
+      _showLoadingWidget = true;
     });
+
+    await Future.delayed(const Duration(seconds: 3));
+    if (mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => isOpened ? const BottomNav() : const OnBoardingPage(),
+        ),
+      );
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    checkRule();
+    checkRuleAndNavigate();
     Timer(const Duration(seconds: 2), () {
       setState(() {
         _showLoadingWidget = true;
@@ -40,14 +50,6 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (_) =>
-                isOpened ? const BottomNav() : const OnBoardingPage()));
-      });
-    });
-
     final double logoSize = MediaQuery.of(context).size.width * 0.3;
 
     return Scaffold(
