@@ -71,4 +71,6 @@ staff, and the wider community.""";
 class AppImagePaths {
   static const instagramIcon = "assets/images/insta-icon.png";
   static const whatsappIcon = "assets/images/whats-icon.png";
+  static const batchLogo = "assets/images/batch-logo.png";
+  static const onBoardingLottie = "assets/lottie/on-boarding.json";
 }
